@@ -1,0 +1,39 @@
+------------------------Question Link-----------------------
+https://leetcode.com/problems/check-if-n-and-its-double-exist/description/?envType=daily-question&envId=2024-12-01
+
+---------------------Java Code--------------------------
+
+// #BRUTE
+    class Solution {
+    public boolean checkIfExist(int[] arr) {
+         int n = arr.length;
+
+         Arrays.sort(arr);
+
+         for(int i=0; i<n-1; i++){
+             for(int j=i+1; j<n; j++){
+                 if(arr[j] == arr[i]*2 || arr[i] == arr[j]*2){
+                     return true;
+                 }
+             }
+         }
+         return false;
+    }
+}
+
+// #OPTIMIZED(HashMap)
+class Solution {
+    public boolean checkIfExist(int[] arr) {
+       Set<Integer> set = new HashSet<>();
+
+       for(int val : arr){
+        if(set.contains(val*2) || (val%2==0 && set.contains(val/2))){
+            return true;
+        } else{
+            set.add(val);
+         }
+       }
+       return false;
+    }
+}
+
