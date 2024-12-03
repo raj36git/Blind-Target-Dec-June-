@@ -1,0 +1,35 @@
+-----------------Question Link------------------
+https://leetcode.com/problems/find-the-duplicate-number/description/
+
+-----------------Java Code-------------------
+
+// #BRUTE (TLE)
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int n = nums.length;
+        for(int i=0; i<n-1; i++){
+            for(int j=i+1; j<n; j++){
+                if(nums[i]==nums[j]){
+                    return nums[i];
+                }
+            }
+        }
+        return -1;
+    }
+}
+
+// #OPTIMIZED (HASHMAP)
+class Solution {
+    public int findDuplicate(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+
+        for(int val:nums){
+            if(set.contains(val)){
+                return val;
+            }else{
+                set.add(val);
+            }
+        }
+        return -1;
+    }
+}
