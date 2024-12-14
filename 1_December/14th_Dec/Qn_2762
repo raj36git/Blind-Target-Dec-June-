@@ -1,0 +1,53 @@
+-----------Question Link----------
+https://leetcode.com/problems/continuous-subarrays/description/?envType=daily-question&envId=2024-12-14
+
+----------Java  Code-------------
+
+class Solution {
+    public long continuousSubarrays(int[] nums) {
+        long ans = 0;
+        int n = nums.length;
+        
+        // HashMap to store the frequency of elements in the window
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        int i = 0, j = 0;
+        
+        while (j < n) {
+            map.put(nums[j], map.getOrDefault(nums[j], 0) + 1);
+            
+            // Check if the condition is violated (max - min > 2)
+            while (map.size() > 1 && (getMax(map) - getMin(map) > 2)) {
+                map.put(nums[i], map.get(nums[i]) - 1);
+                if (map.get(nums[i]) == 0) {
+                    map.remove(nums[i]);
+                }
+                i++;
+            }
+            
+            // Add the number of valid subarrays ending at 'j'
+            ans += j - i + 1;
+            j++;
+        }
+        
+        return ans;
+    }
+    
+    // Helper method to get the maximum value in the HashMap
+    public int getMax(HashMap<Integer, Integer> map) {
+        int max = Integer.MIN_VALUE;
+        for (int key : map.keySet()) {
+            max = Math.max(max, key);
+        }
+        return max;
+    }
+
+    // Helper method to get the minimum value in the HashMap
+    public int getMin(HashMap<Integer, Integer> map) {
+        int min = Integer.MAX_VALUE;
+        for (int key : map.keySet()) {
+            min = Math.min(min, key);
+        }
+        return min;
+    }
+}
