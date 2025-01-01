@@ -1,0 +1,32 @@
+---------------Question Link------------------
+https://leetcode.com/problems/maximum-score-after-splitting-a-string/description/?envType=daily-question&envId=2025-01-01
+
+-----------------Java Code------------------------
+class Solution {
+    public int maxScore(String s) {
+        int n = s.length();
+        int ones = 0;
+
+        //Count 1's
+        for(int i=0; i<n; i++){
+            if(s.charAt(i) == '1'){
+                ones++;
+            }
+        }
+
+        int zeros = 0;
+        int maxScore = Integer.MIN_VALUE;
+
+        for(int i=0; i<n-1; i++){
+            if(s.charAt(i) == '0'){
+                zeros++;
+            }else{
+                ones--; //cuz we have already calculated total sum of 1's
+            }
+             //Calculate current score
+            int currScore = ones + zeros;
+            maxScore = Math.max(currScore, maxScore);
+        }
+        return maxScore;
+    }
+}
